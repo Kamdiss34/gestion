@@ -1,0 +1,12 @@
+{
+  "telephone": {
+    "228": [
+      {"indicatif": "228", "pays": "Togo"}
+      
+    ],
+    "229": [
+      {"indicatif": "229", "pays": "Benin"}
+     
+    ]
+  }
+}

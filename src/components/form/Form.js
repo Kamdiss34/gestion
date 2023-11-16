@@ -5,7 +5,7 @@ import{Nav, Navbar,Container, NavDropdown } from 'react-bootstrap';
 function Form() {
   return (
     <div className="App">
-<Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
+ <Navbar collapseOnSelect expand="lg" className="navb">
       <Container>
         <Navbar.Brand href="#home">
         <a href="/">
@@ -16,7 +16,7 @@ function Form() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <Nav.Link href="/Article">Articles</Nav.Link>
             <NavDropdown title="Dropdown" id="collapsible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
@@ -30,7 +30,7 @@ function Form() {
             </NavDropdown>
           </Nav>
           <Nav>
-            <Nav.Link href="#deets">More deets</Nav.Link>
+            <Nav.Link href="/Admin">Admin</Nav.Link>
             <Nav.Link eventKey={2} href="#memes">
               Dank memes
             </Nav.Link>
