@@ -1,0 +1,11 @@
+{"taxDta":[
+    {
+      "name": "Taxe1",
+      "rate": 0.05
+    },
+    {
+      "name": "Taxe2",
+      "rate": 0.1
+    }
+  ]
+}
