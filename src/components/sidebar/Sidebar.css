@@ -91,7 +91,6 @@ main{
     background-color: rgba(0, 0, 0, 0.1);
 }
 .active{
-    color: var(--white-color);
     background-color: rgba(0, 0, 0, 0.1);
 }
 

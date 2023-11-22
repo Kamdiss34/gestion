@@ -1,0 +1,22 @@
+.cli {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 100px;
+  }
+  .button {
+    
+    margin-left: 70%;
+  }
+
+  .nom,.adres {
+    
+    margin-left: 50%;
+  }
+  .pren{
+    
+    margin-right: 50%;
+  }
+  .tel{
+    
+    margin-right: 45%;
+  }
