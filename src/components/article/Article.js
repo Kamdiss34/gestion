@@ -23,7 +23,6 @@ const Article = () => {
   const [showAdresModal, setShowAdresModal] = useState(false);
   const [showTelModal, setShowTelModal] = useState(false);
   const [showResModal, setShowResModal] = useState(false);
-  const [showQuantModal, setShowQuantModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteItemIndex, setDeleteItemIndex] = useState(null);
 
@@ -36,8 +35,7 @@ const Article = () => {
   const handleCloseAdresModal = () => setShowAdresModal(false);
   const handleCloseTelModal = () => setShowTelModal(false);
   const handleCloseResModal = () => setShowResModal(false);
-  const handleCloseQuantModal = () => setShowQuantModal(false);
-
+ 
   const handleValidate = () => {
   if (nom === "") {
     setShowNameModal(true);
@@ -185,11 +183,6 @@ const cancelDelete = () => {
             };
             
           const handleAddItem = () => {
-            if( parseFloat(quantity) <= 0){
-              setShowQuantModal(true);
-              return;
-            }
-            setShowQuantModal(false);
               setEmptyName(selectedNom === "Sélectionner article");
               setEmptyTax(selectedTax === "Sélectionner une taxe");
               setEmptyQuantity(!quantity);
@@ -202,14 +195,17 @@ const cancelDelete = () => {
     setEmptyTax(true);
   }
 
-  if (!quantity) {
-    setEmptyQuantity(true);
-  }
-
-  // If any required field is empty, return without adding the item
-    if (selectedNom === "Sélectionner article" || selectedTax === "Sélectionner une taxe" || !quantity) {    
+    if (!quantity || parseFloat(quantity) <= 0) {
+      setEmptyQuantity(true);
       return;
     }
+  
+    // If any required field is empty, return without adding the item
+      if (selectedNom === "Sélectionner article" || selectedTax === "Sélectionner une taxe" || !quantity ||
+      parseFloat(quantity) <= 0) {    
+        return;
+      }
+         
                if (editableIndex !== null) {
                       // If in edit mode, update the existing item
                       const updatedItems = [...items];
@@ -521,7 +517,7 @@ const cancelDelete = () => {
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
               />
-          {emptyQuantity && <div className="invalid-feedback">Veuillez saisir une quantité.</div>}
+          {emptyQuantity && <div className="invalid-feedback">Veuillez saisir une quantité valide.</div>}
         
           </div>
              
@@ -688,32 +684,6 @@ onClick={() => handleDeleteItem(index)}
 
 
 
-      <div
-        className="modal"
-        tabIndex="-1"
-        role="dialog"
-        style={{ display: showQuantModal ? "block" : "none" }}
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title text-danger">Champ incorrect</h5>
-            </div>
-            <div class="modal-body">
-              <p>S'il vous plait, veuillez entrer une quantité positive.</p>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                onClick={handleCloseQuantModal}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
           </div>
   );
 };

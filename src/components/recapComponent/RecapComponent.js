@@ -24,22 +24,32 @@ const RecapComponent = ({ clientInfo, items }) => {
             const generatePDF = async () => {
               const totalGlobalTH = calculateTotalGlobal();
               const totalGlobalTTC = calculateTotalGlobalC();
+
+              const pdf = new jsPDF({
+                unit: "mm",
+                format: "a4",
+                orientation: "portrait",
+              });
           
-              const pdfContent = (
-                <div>
-                  <h6>Informations du Client</h6>
-                  <div className="cli">
+             
+                <div className="pdf-content">
+                  <h6 className="section-title">Informations du Client</h6>
+                  <div className="cl1">
                     <div>
-                      <p>Nom: <strong>{clientInfo.nom}</strong></p>
-                      <p>Adresse: <strong>{clientInfo.adresse}</strong></p>
+                    <p className="info-label">Nom:</p>
+                    <p className="info-value">{clientInfo.nom}</p>  
+                    <p className="info-label">Prenom:</p>
+                    <p className="info-value">{clientInfo.prenom}</p>  
+                    <p className="info-label">Adresse:</p>
+                    <p className="info-value">{clientInfo.adresse}</p>  
+                    <p className="info-label">Telephone:</p>
+                    <p className="info-value">{clientInfo.telephone}</p>  
+                   
                     </div>
-                    <div>
-                      <p>Prenoms: <strong>{clientInfo.prenom}</strong></p>
-                      <p>Telephone: <strong>{clientInfo.telephone}</strong></p>
                     </div>
-                  </div>
+                  
           
-                  <h5>Informations sur les Articles</h5>
+                  <h5 className="section-title">Informations sur les Articles</h5>
                   <table className="table">
                     <thead>
                       <tr>
@@ -62,32 +72,32 @@ const RecapComponent = ({ clientInfo, items }) => {
                       ))}
                     </tbody>
                   </table>
-          
-                  <h6>Total Global TH: <strong>{totalGlobalTH}</strong></h6>
-                  <h6>Total Global TTC: <strong>{totalGlobalTTC}</strong></h6>
-                </div>
-              );
-              const canvas = await html2canvas(pdfRef.current, {
-                scale: 2, // Adjust the scale for higher resolution
-                logging: true, // Enable logging for debugging if needed
-            });
-        
-            const pdf = new jsPDF({
-                unit: 'mm',
-                format: 'a4',
-                orientation: 'portrait',
-            });
-        
-            pdf.addImage(canvas.toDataURL("image/jpeg", 1.0), "JPEG", 0, 0, pdf.internal.pageSize.width, pdf.internal.pageSize.height);
-            pdf.save("rapport.pdf");
-            };
+                  <h6 className="total-label">Total Global TH:</h6>
+                  <h6 className="total-value">{totalGlobalTH}</h6>
+                  <h6 className="total-label">Total Global TTC:</h6>
+                  <h6 className="total-value">{totalGlobalTTC}</h6>  </div>
+
+const scale = 4; // Adjust the scale for higher resolution
+const canvas = await html2canvas(pdfRef.current, {
+scale: scale,
+logging: true,
+margin: 10, // Set the margin value here
+});
+
+const imgData = canvas.toDataURL("image/png", 1.0); // Use PNG format for better quality
+const imgWidth = pdf.internal.pageSize.width * 1.10; // Adjust the multiplier for higher resolution
+const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+pdf.save("rapport.pdf");
+};
           
     return (
    
       <div>
       <div ref={pdfRef}>
         <h6>Informations du Client</h6>
-        <div className="cli">
+        <div className="cl1">
           <div>
             <p className="nom">Nom: <strong>{clientInfo.nom}</strong></p>
             <p className="adres">Adresse: <strong>{clientInfo.adresse}</strong></p>
@@ -99,7 +109,7 @@ const RecapComponent = ({ clientInfo, items }) => {
         </div>
 
         <h5>Informations sur les Articles</h5>
-        <table className="table">
+        <table className="table1">
           <thead>
             <tr>
               <th>Nom Article</th>
